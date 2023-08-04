@@ -13,6 +13,15 @@ const routes: RouteRecordRaw[] = [
         props: true,
       },
       { path: 'done', component: () => import('pages/DonePage.vue') },
+      {
+        path: 'pokemon',
+        component: () => import('src/pages/PokemonIndex.vue'),
+      },
+      {
+        path: 'pokemon/:name',
+        component: () => import('pages/PokemonDetail.vue'),
+        props: true,
+      },
     ],
   },
 

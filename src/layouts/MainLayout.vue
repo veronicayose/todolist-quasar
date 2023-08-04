@@ -54,6 +54,11 @@ const menu = [
     url: '/done',
     text: 'Done',
   },
+  {
+    id: 3,
+    url: '/pokemon',
+    text: 'Pokemon',
+  },
 ];
 export default defineComponent({
   name: 'MainLayout',
