@@ -26,7 +26,7 @@
             <q-btn
               flat
               class="text-h6 text-bold text-left"
-              @click="$router.push(data.url)"
+              @click="$router.push(data.url).then(() => $router.go(0))"
               >{{ data.text }}</q-btn
             >
           </q-item-section>
@@ -56,7 +56,7 @@ const menu = [
   },
   {
     id: 3,
-    url: '/pokemon',
+    url: '/pokemon/',
     text: 'Pokemon',
   },
 ];
