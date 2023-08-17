@@ -12,6 +12,8 @@ export interface Pokemon {
   weight?: number;
 }
 
+const pokemonImage = ref<string[]>([]);
+
 const pokemonArr = ref<Pokemon[]>([]);
 // const pokemonPaginationArr = ref<PokemonPagination[]>([]);
 
@@ -59,4 +61,16 @@ async function getDetailPokemon(params: string) {
   return pokemonArr.value;
 }
 
-export { getPokemon, getDetailPokemon };
+async function getPokemonImage(params: string) {
+  const response = await fetch(
+    'https://pokeapi.co/api/v2/pokemon/'.concat(params)
+  );
+  const data = await response.json();
+  pokemonImage.value.push(data.sprites.front_default);
+  pokemonImage.value.push(data.sprites.back_default);
+  console.log(pokemonImage);
+  // return data.sprites.front_default;
+  return pokemonImage.value;
+}
+
+export { getPokemon, getDetailPokemon, getPokemonImage };

@@ -2,37 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          <router-link to="/" style="text-decoration: none">
-            <q-btn flat class="text-white" label="Todo List" />
-          </router-link>
-        </q-toolbar-title>
+        <base-toolbar-title />
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list class="q-mt-xl">
-        <q-item v-for="data in menu" :key="data.id">
-          <q-item-section>
-            <q-btn
-              flat
-              class="text-h6 text-bold text-left"
-              @click="$router.push(data.url).then(() => $router.go(0))"
-              >{{ data.text }}</q-btn
-            >
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -40,40 +12,6 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-
-const menu = [
-  {
-    id: 1,
-    url: '/',
-    text: 'All Task',
-  },
-  {
-    id: 2,
-    url: '/done',
-    text: 'Done',
-  },
-  {
-    id: 3,
-    url: '/pokemon/',
-    text: 'Pokemon',
-  },
-];
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {},
-  setup() {
-    const leftDrawerOpen = ref(false);
-
-    return {
-      menu,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-});
+<script setup>
+import BaseToolbarTitle from '../components/BaseToolbarTitle.vue';
 </script>

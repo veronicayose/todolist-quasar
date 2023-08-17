@@ -1,31 +1,50 @@
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
+  // Path for index and pokemons
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'add', component: () => import('pages/AddPage.vue') },
-      {
-        path: 'edit/:id',
-        component: () => import('pages/EditPage.vue'),
-        props: true,
-      },
-      { path: 'done', component: () => import('pages/DonePage.vue') },
+      { path: '', component: () => import('src/pages/IndexPage.vue') },
       {
         path: 'pokemon',
-        component: () => import('src/pages/PokemonIndex.vue'),
+        component: () => import('src/pages/Pokemon/IndexPage.vue'),
       },
       {
         path: 'pokemon/:offset',
-        component: () => import('src/pages/PokemonIndex.vue'),
+        component: () => import('src/pages/Pokemon/IndexPage.vue'),
         props: true,
       },
       {
         path: 'pokemon/detail/:name',
-        component: () => import('pages/PokemonDetail.vue'),
+        component: () => import('src/pages/Pokemon/DetailPage.vue'),
         props: true,
+      },
+    ],
+  },
+
+  // Path for todos
+  {
+    path: '/todo/',
+    component: () => import('layouts/TodoLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('src/pages/TodoList/IndexPage.vue'),
+      },
+      {
+        path: 'add',
+        component: () => import('src/pages/TodoList/AddPage.vue'),
+      },
+      {
+        path: 'edit/:id',
+        component: () => import('src/pages/TodoList/EditPage.vue'),
+        props: true,
+      },
+      {
+        path: 'done',
+        component: () => import('src/pages/TodoList/DonePage.vue'),
       },
     ],
   },

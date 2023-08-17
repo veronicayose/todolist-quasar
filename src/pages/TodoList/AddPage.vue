@@ -1,8 +1,8 @@
 <template>
   <base-page class="column items-center">
     <!-- Header -->
-    <h3 class="text-bold q-my-xl">Add Page</h3>
-    <base-button color="primary" label="Back" @click="$router.push('/')" />
+    <h3 class="text-bold q-mt-xl q-mb-md">Add Page</h3>
+    <base-button color="primary" label="Back" @click="$router.back()" />
     <base-card style="width: 80%" class="q-pa-md q-my-md">
       <q-form>
         <base-input v-model="taskTitle" label="Title"></base-input>
