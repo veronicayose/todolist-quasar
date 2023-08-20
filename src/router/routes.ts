@@ -12,11 +12,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import('src/pages/Pokemon/IndexPage.vue'),
       },
       {
-        path: 'pokemon/:offset',
-        component: () => import('src/pages/Pokemon/IndexPage.vue'),
-        props: true,
-      },
-      {
         path: 'pokemon/detail/:name',
         component: () => import('src/pages/Pokemon/DetailPage.vue'),
         props: true,

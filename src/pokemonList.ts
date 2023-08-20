@@ -6,71 +6,54 @@ export interface Pokemon {
   base_experience?: number;
   height?: number;
   id?: number;
-  is_default?: boolean;
   location_area_encounters?: string;
   order?: number;
   weight?: number;
 }
+export function pokemonData() {
+  const pokemonArr = ref<Pokemon[]>([]);
 
-const pokemonImage = ref<string[]>([]);
+  // First Method
+  // async function getPokemon() {
+  //   const response = await fetch(
+  //     'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20'
+  //   );
+  //   const data = await response.json();
+  //   console.log(data);
+  //   pokemonArr.value = data.results;
+  //   console.log(pokemonArr.value);
+  //   return pokemonArr.value;
+  // }
 
-const pokemonArr = ref<Pokemon[]>([]);
-// const pokemonPaginationArr = ref<PokemonPagination[]>([]);
+  // Second Method
+  // function getPokemonPromise() {
+  //   return new Promise((resolve, reject) => {
+  //     fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         pokemonArr.value = data.results;
+  //         resolve(pokemonArr.value);
+  //       });
+  //   });
+  // }
 
-// First Method
+  async function getPokemon(params: string) {
+    const response = await fetch(
+      'https://pokeapi.co/api/v2/pokemon?offset='.concat(params, '&limit=20')
+    );
+    const data = await response.json();
+    pokemonArr.value = data.results;
+    return pokemonArr.value;
+  }
 
-// async function getPokemon() {
-//   const response = await fetch(
-//     'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20'
-//   );
-//   const data = await response.json();
-//   console.log(data);
-//   pokemonArr.value = data.results;
-//   console.log(pokemonArr.value);
-//   return pokemonArr.value;
-// }
-
-async function getPokemon(params: string) {
-  const response = await fetch(
-    'https://pokeapi.co/api/v2/pokemon?offset='.concat(params, '&limit=20')
-  );
-  const data = await response.json();
-  pokemonArr.value = data.results;
-  return pokemonArr.value;
+  async function getDetailPokemon(params: string) {
+    const response = await fetch(
+      'https://pokeapi.co/api/v2/pokemon/'.concat(params)
+    );
+    const data = await response.json();
+    pokemonArr.value = data;
+    console.log(pokemonArr.value);
+    return pokemonArr.value;
+  }
+  return { getPokemon, getDetailPokemon };
 }
-
-// Second Method
-// function getPokemonPromise() {
-//   return new Promise((resolve, reject) => {
-//     fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
-//       .then((response) => response.json())
-//       .then((data) => {
-//         pokemonArr.value = data.results;
-//         resolve(pokemonArr.value);
-//       });
-//   });
-// }
-
-async function getDetailPokemon(params: string) {
-  const response = await fetch(
-    'https://pokeapi.co/api/v2/pokemon/'.concat(params)
-  );
-  const data = await response.json();
-  pokemonArr.value = data;
-  console.log(pokemonArr.value);
-  return pokemonArr.value;
-}
-
-async function getPokemonImage(params: string) {
-  const response = await fetch(
-    'https://pokeapi.co/api/v2/pokemon/'.concat(params)
-  );
-  const data = await response.json();
-  pokemonImage.value.push(data.sprites.front_default);
-  pokemonImage.value.push(data.sprites.back_default);
-  console.log(pokemonImage);
-  // return data.sprites.front_default;
-  return pokemonImage.value;
-}
-
-export { getPokemon, getDetailPokemon, getPokemonImage };

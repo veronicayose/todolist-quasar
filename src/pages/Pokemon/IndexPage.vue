@@ -34,16 +34,12 @@
 import BasePage from '../../components/BasePage.vue';
 import BaseCard from '../../components/BaseCard.vue';
 import BaseButton from '../../components/BaseButton.vue';
-import { getPokemon, Pokemon } from 'src/pokemonList';
+import { pokemonData, Pokemon } from 'src/pokemonList';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
-const props = defineProps({ offset: String });
-// eslint-disable-next-line vue/no-setup-props-destructure
-let params = props.offset;
-const router = useRouter();
-
+let params = '0';
 const pokemonList = ref<Pokemon[]>([]);
+const { getPokemon } = pokemonData();
 
 onMounted(async () => {
   pokemonList.value = await getPokemon(params!);
@@ -60,8 +56,6 @@ async function toPrevious() {
   numberParams += 20;
   pokemonList.value = await getPokemon(numberParams.toString());
 }
-
-console.log(pokemonList);
 </script>
 
 <style></style>

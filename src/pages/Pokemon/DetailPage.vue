@@ -5,31 +5,22 @@
     <base-button color="primary" label="Back" @click="$router.back()" />
     <base-card style="width: 50%" class="q-py-md q-px-lg q-my-md">
       <q-card-section class="q-pa-none row justify-center">
-        <q-img :src="pokemonImage[0]" alt="Pokemon Image" style="width: 50%" />
-        <q-img :src="pokemonImage[1]" alt="Pokemon Image" style="width: 50%" />
+        <q-img
+          :src="pokemonDetail.sprites?.front_default"
+          alt="Pokemon Back"
+          style="width: 50%"
+        />
+        <q-img
+          :src="pokemonDetail.sprites?.back_default"
+          alt="Pokemon Front"
+          style="width: 50%"
+        />
       </q-card-section>
       <q-card-section
         ><div class="row q-my-xs">
           <h6 class="col-6 q-my-xs">Pokemon Name</h6>
           <h6 class="col-6 q-my-xs">{{ pokemonDetail.name }}</h6>
         </div>
-
-        <!-- <div class="row q-my-xs">
-          <h6 class="col-6 q-my-xs">Pokemon Sprites</h6>
-          <h6 class="col-6 q-my-xs">{{ pokemonDetail.sprites }}</h6>
-        </div>
-
-        <div class="row q-my-xs">
-          <h6 class="col-6 q-my-xs">Pokemon img</h6>
-          <h6 class="col-6 q-my-xs">
-            {{ pokemonDetail.sprites.back_default }}
-          </h6>
-          <q-img
-            :src="pokemonDetail.sprites.back_default"
-            alt="Pokemon Image"
-            style="width: 50%"
-          />
-        </div>-->
 
         <div class="row q-my-xs">
           <h6 class="col-6 q-my-xs">Base Experience</h6>
@@ -66,21 +57,18 @@
 import BasePage from 'src/components/BasePage.vue';
 import BaseCard from 'src/components/BaseCard.vue';
 import BaseButton from 'src/components/BaseButton.vue';
-import { getDetailPokemon, getPokemonImage } from 'src/pokemonList';
+import { pokemonData, Pokemon } from 'src/pokemonList';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({ name: String });
 // eslint-disable-next-line vue/no-setup-props-destructure
 const params = props.name;
-
-import { Pokemon } from 'src/pokemonList';
-import { onMounted, ref } from 'vue';
+const { getDetailPokemon } = pokemonData();
 
 const pokemonDetail = ref<Pokemon[]>([]);
-const pokemonImage = ref<string[]>([]);
 
 onMounted(async () => {
   pokemonDetail.value = await getDetailPokemon(params!);
-  pokemonImage.value = await getPokemonImage(params!);
 });
 
 console.log(pokemonDetail);
